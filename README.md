@@ -13,3 +13,8 @@ Start server:
 
 Listen port **8081**
 
+
+Endpoints:
+
+* /users
+* 
