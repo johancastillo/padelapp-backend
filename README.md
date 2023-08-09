@@ -18,3 +18,8 @@ Endpoints:
 
 * /users
 * 
+
+Para la coneccion con MongoDB se usaron las siguientes dos librerias:
+
+* mongoose
+* @nestjs/mongoose
