@@ -8,9 +8,7 @@ import {User} from "./interfaces/users.interface"
 @Injectable()
 export class UsersService {
     
-    constructor(@InjectModel('users') private readonly userModel:Model<createUserDTO>){
-
-    }
+    constructor(@InjectModel('users') private readonly userModel:Model<createUserDTO>){}
 
     /*
     #################
