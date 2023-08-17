@@ -2,9 +2,11 @@ import { Schema } from "mongoose";
 
 export const userSchema = new Schema({
     fullname: {type:  String, require: true},
-    username: String,
+    name: String,
     email: String,
     password: String,
+    phone: String,
+    category: String,
     createdAt: {
         type: Date,
         default: Date.now
