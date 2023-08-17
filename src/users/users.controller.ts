@@ -27,7 +27,7 @@ export class UsersController {
     # GET SINGLE USER #
     ###################
     */
-    @Post('/:id')
+    @Post('profile/:id')
     async getSingleUser(@Res() res, @Param('id') userID:string) {
         const user = await this.usersService.getUser(userID);
 
@@ -52,14 +52,26 @@ export class UsersController {
     # LOGIN #
     #############
     */
-    @Get('/login')
-    async login(@Res() res) {
-        const users = await this.usersService.getUsers()
+    @Post('/login')
+    async login(@Res() res, @Body() credentials) {
+        console.log("Entro al Login", credentials);
+        
+        const user:any = await this.usersService.getUserByEmail(credentials.email);
 
-        res.status(HttpStatus.OK).json({
-            message: "received",
-            data: users
-        })
+        if(user) {
+
+            res.status(HttpStatus.OK).json({
+                message: "received",
+                login: user[0].password == credentials.password ? true : false,
+            })
+        }else{
+            res.status(HttpStatus.OK).json({
+                message: "Usuario no existe",
+                login: false
+            })
+        }
+
+        
     }
 
     /*

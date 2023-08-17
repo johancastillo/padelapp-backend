@@ -21,13 +21,23 @@ export class UsersService {
     }
 
     /*
+    #####################
+    # Get User By Email #
+    #####################
+    */
+    async getUserByEmail(email: string) {
+        const user = await this.userModel.find({email: email});
+        return user
+    }
+
+    /*
     ###################
     # Get Single User #
     ###################
     */
-    async getUser(userId:string):Promise<User>{
-        const user = await this.userModel.findById(userId);
-        return user;
+    async getUser(userId:string){
+        //const user = await this.userModel.findById(userId);
+        return "user";
     }
 
     /*
