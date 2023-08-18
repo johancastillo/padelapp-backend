@@ -7,6 +7,10 @@ export const userSchema = new Schema({
     password: String,
     phone: String,
     category: String,
+    status: {
+        type: String,
+        default: "pending"
+    },
     createdAt: {
         type: Date,
         default: Date.now
