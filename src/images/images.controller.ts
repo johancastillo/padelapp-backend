@@ -1,7 +1,7 @@
-import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {readFileSync} from 'fs';
-import { Express } from 'express';
+import { Express, Response } from 'express';
 import { diskStorage } from 'multer';
 import { fileFilter, renameImage } from './helpers/images.helpers';
 import { ImagesService } from './images.service';
@@ -21,10 +21,19 @@ export class ImagesController {
         }),
         fileFilter: fileFilter
     }))
-    async uplodFile(@UploadedFile() file: Express.Multer.File){
+    async uplodFile(
+        @UploadedFile() file: Express.Multer.File,
+        @Res() res:Response
+    ){
 
         console.log(file)
-        return await this.imagesService.saveImage({filename: file.filename});
+        
+        //return await this.imagesService.saveImage({filename: file.filename});
+        return res.status(HttpStatus.OK).json({
+            message: 'Image saved successfully',
+            filename: file.filename
+        })
+
     }
 
     // De base 64 a imagenes
