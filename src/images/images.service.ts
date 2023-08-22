@@ -16,4 +16,16 @@ export class ImagesService {
         return await file.save();
     }
 
+    // Get All Images
+    async getAllImages(){
+        const images = await this.imagesModel.find();
+        return images
+    }
+
+    // Delete Image
+    async deleteImage(id){
+        const imageDeleted = await this.imagesModel.findByIdAndDelete(id);
+        return imageDeleted;
+    }
+
 }
