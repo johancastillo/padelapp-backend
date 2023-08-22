@@ -1,25 +1,28 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {readFileSync} from 'fs';
+import { Express } from 'express';
+import { diskStorage } from 'multer';
+import { fileFilter, renameImage } from './helpers/images.helpers';
+
 
 @Controller('images')
 export class ImagesController {
 
     constructor(){}
 
-    // Convertir imagenes a base 64
-    @Post('/convert')
-    imageToBase64(@Body() data){
+    // Guardar imagenes
+    @Post('/upload')
+    @UseInterceptors(FileInterceptor('file', {
+        storage: diskStorage({
+            destination: './uploads',
+            filename: renameImage
+        }),
+        fileFilter: fileFilter
+    }))
+    uplodFile(@Body() data, @UploadedFile() file: Express.Multer.File){
 
-        
-        const toBase64 = (filePath) => {
-            const img = readFileSync(filePath);
-            
-            return Buffer.from(img).toString('base64');
-        }
-        
-        
-        console.log(data, toBase64(data.image));
-        
+        console.log(file)
         return data;
     }
 
