@@ -26,6 +26,12 @@ export class ImagesController {
         }
     }
 
+    // Show File
+    @Get('pictures/:filename')
+    showFile(@Param('filename') filename, @Res() resp){
+        resp.sendFile(filename, {root: './uploads'})
+    }
+
     // Guardar imagenes
     @Post('/upload')
     @UseInterceptors(FileInterceptor('file', {
