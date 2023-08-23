@@ -7,7 +7,7 @@ export const articlesSchema = new Schema({
     description: String,
     resumen: String,
     author: String,
-    photos: String,
+    photos: Array,
     banner: String,
     createdAt: {
         type: Date,
