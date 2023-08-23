@@ -1,17 +1,19 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Query, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import {readFileSync} from 'fs';
 import { Express, Response } from 'express';
 import { diskStorage } from 'multer';
 import { fileFilter, renameImage } from './helpers/images.helpers';
 import { ImagesService } from './images.service';
-import fs from 'fs';
+import {renameSync, unlinkSync} from 'fs';
 
 
 @Controller('images')
 export class ImagesController {
 
-    constructor(private readonly imagesService: ImagesService){}
+    constructor(
+        private readonly imagesService: ImagesService,
+        
+    ){}
 
     @Get('')
     async getAllImages(){
@@ -50,18 +52,28 @@ export class ImagesController {
     }
 
     // Eliminar imagen
-    @Delete('/delete/:id')
-    async removeImage(@Param('id') imageID){
+    @Delete('/delete')
+    async removeImage(@Query('id') imageID, @Query('filename') filename){
 
-        console.log(imageID)
+        console.log(imageID, filename)
 
-        //const imagesDelete = await this.imagesService.deleteImage(imageID);
-
-        //fs.rm('/uploads/4GMAX_P-c495-4GMAX_P.png', () => console.log("imagesDeleteeeed"))
+        
+        
+        // Renombrar un archivo
+        //renameSync('./uploads/4GMAX_P-c495-4GMAX_P.png', './uploads/color.png');
+        
+        //Eliminar un archivo
+        //unlinkSync('./uploads/color.png');
+        
+        // Delete file in server
+        unlinkSync(`./uploads/${filename}`);
+        
+        // Delete document in mongodb
+        const imagesDelete = await this.imagesService.deleteImage(imageID);
 
         return {
             message: "Delete success",
-            filename: 'imagesDelete'
+            filename: imagesDelete
         };
     }
 
