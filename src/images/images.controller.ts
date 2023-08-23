@@ -37,12 +37,13 @@ export class ImagesController {
     }))
     async uplodFile(
         @UploadedFile() file: Express.Multer.File,
-        @Res() res:Response
+        @Res() res:Response,
+        @Body() body
     ){
 
         console.log(file)
         
-        const image = await this.imagesService.saveImage({filename: file.filename});
+        const image = await this.imagesService.saveImage({filename: file.filename, title: body.title});
         
         return res.status(HttpStatus.OK).json({
              message: 'Image saved successfully',
