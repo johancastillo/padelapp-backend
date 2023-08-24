@@ -14,10 +14,13 @@ import { CategoriesModule } from './categories/categories.module';
 import { SponsorsModule } from './sponsors/sponsors.module';
 import { ImagesModule } from './images/images.module';
 import { PasswordsModule } from './passwords/passwords.module';
+import { env, mongoUri } from 'config';
+import { TeamsModule } from './teams/teams.module';
 
 
 @Module({
-  imports: [UsersModule, EventsModule, RankingModule, MongooseModule.forRoot(`mongodb+srv://jcjohan:password2707@tucanisport.rdetp.mongodb.net/padelapp`), ArticlesModule, AdminModule, InscriptionsModule, TasksModule, ResultsModule, CategoriesModule, SponsorsModule, ImagesModule, PasswordsModule],
+  imports: [UsersModule, EventsModule, RankingModule, 
+    MongooseModule.forRoot(mongoUri[env]), ArticlesModule, AdminModule, InscriptionsModule, TasksModule, ResultsModule, CategoriesModule, SponsorsModule, ImagesModule, PasswordsModule, TeamsModule],
   controllers: [AppController],
   providers: [AppService],
 })
