@@ -1,9 +1,10 @@
 import { Schema } from "mongoose";
 
 export const inscriptionsSchema = new Schema({
-    player: String,
+    event_id: String,
+    team_id: String,
     status: String,
-    event: String,
+    capture_pay: String,
     createdAt: {
         type: Date,
         default: Date.now
