@@ -5,4 +5,4 @@ export const mongoUri = {
     production: ""
 }
 
-export const env = "local"
+export const env = "qa"

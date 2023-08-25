@@ -58,7 +58,9 @@ export class UsersController {
         
         const user:any = await this.usersService.getUserByEmail(credentials.email);
 
-        if(user) {
+        console.log("RESPONSE USER", user);
+
+        if(user.length > 0) {
 
             res.status(HttpStatus.OK).json({
                 message: "received",
