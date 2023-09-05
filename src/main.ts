@@ -8,6 +8,13 @@ async function bootstrap() {
 
   const PORT = 8081
   await app.listen(PORT);
+
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: '*',
+    credentials: true,
+  });
+
   console.log(`Runing in port ${PORT}`)
 }
 bootstrap();
