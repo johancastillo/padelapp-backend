@@ -10,9 +10,10 @@ async function bootstrap() {
   await app.listen(PORT);
 
   app.enableCors({
-    allowedHeaders: '*',
-    origin: '*',
-    credentials: true,
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
   });
 
   console.log(`Runing in port ${PORT}`)
